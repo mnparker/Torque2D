@@ -9,9 +9,9 @@ APP_TARGETS_DEBUG :=
 all: debug release
 
 clean:
-	rm -rfv Debug
-	rm -rfv Release
-	rm -rfv lib
+	rm -rf Debug
+	rm -rf Release
+	rm -rf lib
 
 .PHONY: all debug release clean
 
@@ -19,6 +19,8 @@ clean:
 -include x zlib
 -include x lpng
 -include x ljpeg
+-include x vorbis
+-include x ogg
 
 release: $(LIB_TARGETS) $(SHARED_LIB_TARGETS) $(APP_TARGETS)
 	@echo Built libraries: $(LIB_TARGETS)

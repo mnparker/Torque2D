@@ -595,6 +595,30 @@ StringTableEntry SpriteBatch::getSpriteAnimation( void ) const
 
 //------------------------------------------------------------------------------
 
+void SpriteBatch::setSpriteAnimationFrame(const U32 animationFrame)
+{
+	// Finish if a sprite is not selected.
+	if (!checkSpriteSelected())
+		return;
+
+	// Set image frame.
+	mSelectedSprite->setAnimationFrame(animationFrame);
+}
+
+//------------------------------------------------------------------------------
+
+U32 SpriteBatch::getSpriteAnimationFrame(void) const
+{
+	// Finish if a sprite is not selected.
+	if (!checkSpriteSelected())
+		return NULL;
+
+	// Get image frame.
+	return mSelectedSprite->getAnimationFrame();
+}
+
+//------------------------------------------------------------------------------
+
 void SpriteBatch::clearSpriteAsset( void )
 {
     // Finish if a sprite is not selected.
@@ -1211,6 +1235,18 @@ SpriteBatchItem* SpriteBatch::createSprite( const SpriteBatchItem::LogicalPositi
     pSpriteBatchItem->setLocalAngle( getDefaultSpriteAngle() );
 
     return pSpriteBatchItem;
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::integrateSprites(const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats)
+{
+   //process the elapsed time for all sprites
+   for (typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr)
+   {
+      // Update image frame provider.
+      spriteItr->value->ImageFrameProvider::update(elapsedTime);
+   }
 }
 
 //------------------------------------------------------------------------------

@@ -50,8 +50,9 @@ bool retinaEnabled;
 
 void ConvertToRetina(CGPoint *p)
 {
-    p->x *= 2;
-    p->y *= 2;
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    p->x *= screenScale;
+    p->y *= screenScale;
 }
 
 @implementation T2DView
@@ -105,7 +106,7 @@ void ConvertToRetina(CGPoint *p)
         }
         
         S32 orientation = _iOSGameGetOrientation();
-        if (UIDeviceOrientationIsPortrait(orientation))
+        if (UIDeviceOrientationIsPortrait((UIDeviceOrientation)orientation))
         {
             point.y -= _iOSGetPortraitTouchoffset();
         }
@@ -137,7 +138,7 @@ extern Vector<Event *> TouchMoveEvents;
         }
         
         S32 orientation = _iOSGameGetOrientation();
-        if (UIDeviceOrientationIsPortrait(orientation))
+        if (UIDeviceOrientationIsPortrait((UIDeviceOrientation)orientation))
         {
             point.y -= _iOSGetPortraitTouchoffset();
             prevPoint.y -= _iOSGetPortraitTouchoffset();
@@ -166,7 +167,7 @@ extern Vector<Event *> TouchMoveEvents;
         }
         
         S32 orientation = _iOSGameGetOrientation();
-        if (UIDeviceOrientationIsPortrait(orientation))
+        if (UIDeviceOrientationIsPortrait((UIDeviceOrientation)orientation))
         {
             point.y -= _iOSGetPortraitTouchoffset();
             prevPoint.y -= _iOSGetPortraitTouchoffset();
